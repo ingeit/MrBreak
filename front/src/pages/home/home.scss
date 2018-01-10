@@ -1,7 +1,11 @@
 page-home {
+    .scroll-content{
+        background:#f2f2f2;
+    }
     .card {
         margin: 0 !important;
         width: 100% !important;
+        border-radius: 5px;
     }
     .card-content {
         padding: 3px 10px !important;
@@ -21,4 +25,77 @@ page-home {
         word-break: break-all;
         white-space: normal;
     }
+
+    .listaVenta{
+        border-radius: 7px;
+        background-color: white;
+        margin: 5px 10px 0px 5px;
+        min-height: 86%
+    }
+    
+    .lineaVenta{
+        padding-left: 10px;
+        font-size: 12px;
+    }
+
+    .iconoEliminar{
+        color: #D9534F;
+        font-size: 1.7em;
+    }
+
+    .cantidadRecuadro{
+        background: grey;
+        color: white;
+        padding: 3px 6px;
+        border-radius: 3px;
+        // top: 7px;
+        // position: absolute;
+    }
+
+    .label{
+        margin: 5px 8px 5px 0;
+    }
+
+    .lineaNombreProducto {
+        display: table;      
+      }
+
+    .lineaNombreProducto p{
+    white-space:normal;
+    display: table-cell;
+    vertical-align: middle;
+    }
+
+    .cobrarVenta{
+        border-radius: 7px;
+        background-color: #2997CC;
+        margin: 5px 10px 0px 5px;
+        min-height: 12%;
+        border: none;
+        box-shadow: 0 4px #999;
+    }
+
+    .cobrarVenta:hover {background-color: #2997CC}
+
+    .cobrarVenta:active {
+    background-color: #2997CC;
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+    }
+
+    .cobrarVenta .col div{
+        display: table;
+    }
+
+    .cobrarVenta .col div span{
+        white-space:normal;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        font-weight: 300;
+        font-family: sans-serif;
+    }
+      
 }

@@ -1,22 +1,22 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Mr. Break - Aplicación para ventas
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col style="background:#f2f2f2" col-12 col-sm-8>
+      <ion-col col-12 col-sm-8>
         <ion-row>
-          <ion-col *ngFor="let m of productos" col-2>
-            <ion-card>
+          <ion-col *ngFor="let m of listaProductos" col-2>
+            <ion-card (click)="clickProducto(m)">
               <img src="assets/imgs/cafe.jpg" />
               <ion-card-content>
                 <ion-card-title>
-                    {{m.name}}
+                    {{m.nombre}}
                 </ion-card-title>
               </ion-card-content>
             </ion-card>
@@ -24,9 +24,32 @@
           </ion-col>
         </ion-row>
       </ion-col>
-      <ion-col style="background:yellow" col-12 col-sm-4>
-        2 of 4
-      </ion-col>
+      <ion-col col-12 col-sm-4>
+        <ion-row class="listaVenta">
+          <ion-col>
+                  <ion-list no-lines>
+                      <ion-list-header>
+                        Venta
+                      </ion-list-header>
+                      <ion-item class="lineaVenta" *ngFor="let lv of lineasDeVenta">
+                        <ion-row>
+                            <ion-col col-1><span class="cantidadRecuadro">{{lv.cantidad}}</span></ion-col> 
+                            <ion-col col-8 class="lineaNombreProducto"><p>{{lv.nombre}}</p></ion-col>
+                            <ion-col col-2>${{lv.precio*lv.cantidad}}</ion-col>
+                            <ion-col col-1><ion-icon (click)="eliminarCantidad(lv)" class="iconoEliminar" name="md-remove-circle"></ion-icon></ion-col>
+                        </ion-row>
+                      </ion-item>
+                    </ion-list>
+          </ion-col>
+        </ion-row>
+        <ion-row class="cobrarVenta" (click)="cobrar()">
+            <ion-col>
+              <div style="min-height: 100%; min-width: 100%;">
+                  <span>Cobrar ${{totalVenta}}</span>
+              </div>
+            </ion-col>
+        </ion-row>
+      </ion-col> 
     </ion-row>
   </ion-grid>
 </ion-content>
