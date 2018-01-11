@@ -28,7 +28,8 @@
     <ion-row>
       <ion-col col-3 class="padNumerico" (click)="clickPad(t)" *ngFor="let t of teclas"><span>{{t}}</span></ion-col>
       <ion-col col-3 class="padNumerico" (click)="clickPad('borrar')"><span><ion-icon name="backspace"></ion-icon></span></ion-col>
-      <ion-col col-12><button (click)="cobrarVenta()" ion-button small full> Cobrar</button></ion-col>
+      <ion-col col-6><button class="botonCancelar" (click)="cancelar()" ion-button small full>Cancelar</button></ion-col>
+      <ion-col col-6><button (click)="cobrarVenta()" ion-button small full>Cobrar</button></ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

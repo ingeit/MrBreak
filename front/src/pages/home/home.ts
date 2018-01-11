@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, MenuController } from 'ionic-angular';
 import { Producto } from '../../modelos/producto';
 import { ModalPage } from '../modal/modal';
 
@@ -15,7 +15,8 @@ export class HomePage {
   
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private menu: MenuController,
     ){
       this.listaProductos = new Array();
       this.lineasDeVenta = new Array();

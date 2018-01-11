@@ -29,14 +29,14 @@ page-modal {
         float: left;
         text-align: center;
         padding-bottom: 5px;
-        border-bottom: 1px solid lightgray;
+        // border-bottom: 1px solid lightgray;
         margin: 0 7px;
-        border-radius: 3px;
-        box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.14);
+        box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.45);
     }
 
     .padNumerico:active {
         box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 255);
+        border-bottom: 1px solid lightgray;
         transform: translateY(2px);
     }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ModalPage page.
@@ -20,7 +20,7 @@ export class ModalPage {
   public vuelto: any;
   public ventaToMysql: any;
 
-  constructor(public navParams: NavParams) {
+  constructor(public navParams: NavParams, public viewCtrl: ViewController) {
     this.teclas = new Array();
     this.pagaCon = "0";
     this.vuelto = "0";
@@ -57,6 +57,10 @@ export class ModalPage {
       this.ventaToMysql = this.ventaToMysql.concat('*');
     }
     console.log(this.ventaToMysql);
+  }
+
+  cancelar(){
+    this.viewCtrl.dismiss();
   }
 
 }
