@@ -1,35 +1,25 @@
-<ion-header no-border>
-  <ion-navbar>
-    <ion-grid>
-      <ion-row>
-          <ion-col col-12><p>Total</p></ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-12><span>${{parametros.totalVenta}}</span></ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-12><p>Vuelto</p></ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-12><span>${{vuelto}}</span></ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-12><p>Paga con</p></ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-12><span>${{pagaCon}}</span></ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-navbar>
-
-</ion-header>
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col col-3 class="padNumerico" (click)="clickPad(t)" *ngFor="let t of teclas"><span>{{t}}</span></ion-col>
-      <ion-col col-3 class="padNumerico" (click)="clickPad('borrar')"><span><ion-icon name="backspace"></ion-icon></span></ion-col>
-      <ion-col col-6><button class="botonCancelar" (click)="cancelar()" ion-button small full>Cancelar</button></ion-col>
-      <ion-col col-6><button (click)="cobrarVenta()" ion-button small full>Cobrar</button></ion-col>
+      <ion-col col-12 style="margin: 0 auto;">
+          <ion-row class="cabecera">
+              <ion-col col-12><p>Total</p></ion-col>
+              <ion-col col-12><span>${{parametros.totalVenta}}</span></ion-col>
+              <ion-col col-12><p>Vuelto</p></ion-col>
+              <ion-col col-12><span>${{vuelto}}</span></ion-col>
+              <ion-col col-12><p>Paga con</p></ion-col>
+              <ion-col col-12><span>${{pagaCon}}</span></ion-col>
+          </ion-row>
+        <ion-row style="margin-top: 10px;">
+          <ion-col col-4  (click)="clickPad(t)" *ngFor="let t of teclas"><div class="padNumerico"><span>{{t}}</span></div></ion-col>
+          <ion-col col-4  (click)="clickPad('borrar')"><div class="padNumerico"><span><ion-icon name="backspace"></ion-icon></span></div></ion-col>
+        </ion-row>  
+        <ion-row>
+          <ion-col col-6><button class="botonesFooters" (click)="cancelar()" ion-button full color="danger"><ion-icon style="margin-right: 10px;" name="close"></ion-icon>Cancelar</button></ion-col>
+          <ion-col col-6><button class="botonesFooters" (click)="cobrarVenta()" ion-button full color="primary"><ion-icon style="margin-right: 10px;" name="checkmark"></ion-icon>Cobrar</button></ion-col>
+        </ion-row>
+      </ion-col>
     </ion-row>
+      
   </ion-grid>
 </ion-content>

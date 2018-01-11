@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { HomePage } from '../home/home';
+import { LocalDbProvider } from '../../providers/local-db/local-db';
 
 /**
  * Generated class for the ModalPage page.
@@ -19,11 +21,16 @@ export class ModalPage {
   public pagaCon: any;
   public vuelto: any;
   public ventaToMysql: any;
+  public respuestaPouchDB: any;
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navParams: NavParams, 
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    public localDB: LocalDbProvider) {
+
     this.teclas = new Array();
-    this.pagaCon = "0";
-    this.vuelto = "0";
+    this.pagaCon = "0.00";
+    this.vuelto = "0.00";
     this.teclas.push(1,2,3,4,5,6,7,8,9,0,".");
     this.parametros = navParams.get('parametros');
     this.ventaToMysql = '';
@@ -35,7 +42,7 @@ export class ModalPage {
   }
 
   clickPad(tecla){
-    if(this.pagaCon === '0'){
+    if(this.pagaCon === '0.00'){
       this.pagaCon = '';
     }
     if(tecla !== 'borrar'){
@@ -56,6 +63,16 @@ export class ModalPage {
       this.ventaToMysql = this.ventaToMysql.concat(lineaVenta.cantidad);
       this.ventaToMysql = this.ventaToMysql.concat('*');
     }
+    this.viewCtrl.dismiss();
+
+    this.localDB.crearVenta(this.parametros).then((res)=>{
+      // this.loading.dismiss();
+      console.log("respuesta pouch",res)
+      this.respuestaPouchDB = res;
+    }).catch((err) => {
+      console.log("error pouch",err);
+    });
+    this.navCtrl.setRoot(HomePage);
     console.log(this.ventaToMysql);
   }
 
