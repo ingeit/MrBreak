@@ -42,11 +42,9 @@
                     </ion-list>
           </ion-col>
         </ion-row>
-        <ion-row class="cobrarVenta" (click)="cobrar()">
+        <ion-row class="cobrarVentaRow">
             <ion-col>
-              <div style="min-height: 100%; min-width: 100%;">
-                  <span>Cobrar ${{totalVenta}}</span>
-              </div>
+                  <button [disabled]="lineasDeVenta.length === 0" class="botonCobrar" (click)="cobrar()" ion-button full>Cobrar ${{totalVenta}}</button>
             </ion-col>
         </ion-row>
       </ion-col> 

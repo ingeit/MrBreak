@@ -70,7 +70,11 @@ export class HomePage {
 
   cobrar(){
     console.log("cobrando");
-    let modal = this.modalCtrl.create(ModalPage, {lineasDeVenta: this.lineasDeVenta});
+    let parametros = {
+      lineasDeVenta: this.lineasDeVenta,
+      totalVenta: this.totalVenta
+    }
+    let modal = this.modalCtrl.create(ModalPage, {parametros: parametros}, {showBackdrop: true, enableBackdropDismiss: true});
     modal.present();
   }
 

@@ -1,3 +1,46 @@
 page-modal {
+    // esconder scroolbar
+    ::-webkit-scrollbar{ display:none; }
 
+    ion-navbar span{
+        color: black;
+        text-align: center;
+        min-width: 100%;
+        float: left;
+        font-size: 20px;
+        font-weight: 400;
+        font-family: unset;
+    }
+
+    ion-navbar .col{
+        padding: 3px;
+    }
+
+    p{
+        font-size: 10px;
+        font-weight: 100;
+        text-align: center;
+        color: grey;
+        margin: 0 auto;
+    }
+
+    .padNumerico{
+        width: 100%;
+        float: left;
+        text-align: center;
+        padding-bottom: 5px;
+        border-bottom: 1px solid lightgray;
+        margin: 0 7px;
+        border-radius: 3px;
+        box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.14);
+    }
+
+    .padNumerico:active {
+        box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 255);
+        transform: translateY(2px);
+    }
+
+    ion-content ion-row{
+        padding: 3px;
+    }
 }

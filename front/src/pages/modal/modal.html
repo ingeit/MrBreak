@@ -1,18 +1,34 @@
-<!--
-  Generated template for the ModalPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
+<ion-header no-border>
   <ion-navbar>
-    <ion-title>modal</ion-title>
+    <ion-grid>
+      <ion-row>
+          <ion-col col-12><p>Total</p></ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-12><span>${{parametros.totalVenta}}</span></ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-12><p>Vuelto</p></ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-12><span>${{vuelto}}</span></ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-12><p>Paga con</p></ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-12><span>${{pagaCon}}</span></ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-navbar>
 
 </ion-header>
-
-
-<ion-content padding>
-
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3 class="padNumerico" (click)="clickPad(t)" *ngFor="let t of teclas"><span>{{t}}</span></ion-col>
+      <ion-col col-3 class="padNumerico" (click)="clickPad('borrar')"><span><ion-icon name="backspace"></ion-icon></span></ion-col>
+      <ion-col col-12><button (click)="cobrarVenta()" ion-button small full> Cobrar</button></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
