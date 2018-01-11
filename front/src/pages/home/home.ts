@@ -1,38 +1,41 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { Producto } from '../../modelos/producto';
+import { ModalPage } from '../modal/modal';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public lineasVentas: any
   public producto: Producto;
   public listaProductos: Producto[]; 
   public lineasDeVenta:any[];
   public totalVenta: number;
   
-  constructor(public navCtrl: NavController) {
-    this.listaProductos = new Array();
-    this.lineasDeVenta = new Array();
-    this.totalVenta = 0;
-    // this.totalVenta = this.lineasDeVenta.map(lv => )
-    for(let i=1;i<36;i++){ 
-      this.producto = new Producto(i,'T. Jamon/Salame + LicuadoAPruebaDeAgua',15.50,"base64:asdadsad");
-      // if(this.producto.nombre.length > 26){
-      //   this.producto.nombre = this.producto.nombre.slice(0,25) + '...';
-      // }
-      this.listaProductos.push(this.producto);
-    }
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController
+    ){
+      this.listaProductos = new Array();
+      this.lineasDeVenta = new Array();
+      this.totalVenta = 0;
+      // this.totalVenta = this.lineasDeVenta.map(lv => )
+      for(let i=1;i<36;i++){ 
+        this.producto = new Producto(i,'T. Jamon/Salame + LicuadoAPruebaDeAgua',15.50,"base64:asdadsad");
+        // if(this.producto.nombre.length > 26){
+        //   this.producto.nombre = this.producto.nombre.slice(0,25) + '...';
+        // }
+        this.listaProductos.push(this.producto);
+      }
 
-    this.listaProductos[3].nombre = "asd";
-    this.producto = new Producto(36,"hola",99.50,"chau");
-    this.listaProductos.push(this.producto);
-    console.log("producto ",this.producto);
-    console.log("nombre producto ",this.producto.nombre);
-    console.log("lista producto ",this.listaProductos);
-  }
+      this.listaProductos[3].nombre = "asd";
+      this.producto = new Producto(36,"hola",99.50,"chau");
+      this.listaProductos.push(this.producto);
+      console.log("producto ",this.producto);
+      console.log("nombre producto ",this.producto.nombre);
+      console.log("lista producto ",this.listaProductos);
+    }
 
   clickProducto(p){
     // Vemos si en alguna linea de venta existe el mismo producto para solo sumar la cantidad
@@ -67,6 +70,8 @@ export class HomePage {
 
   cobrar(){
     console.log("cobrando");
+    let modal = this.modalCtrl.create(ModalPage, {lineasDeVenta: this.lineasDeVenta});
+    modal.present();
   }
 
 }
