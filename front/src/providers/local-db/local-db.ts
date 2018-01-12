@@ -34,6 +34,8 @@ export class LocalDbProvider {
       });
     });   
   }
+
+  
  
 crearVenta(todo){
   return new Promise((resolve, reject) => {
@@ -56,6 +58,7 @@ subirVentas() {
       for(let venta of this.data){
         let parametros = this.armarParametros(venta);
         this.ventaAMysql(parametros).then((res) => {
+          this.eliminarVenta(venta);
           console.log(res);
         }).catch((err) => {
           console.log(err);
@@ -87,23 +90,31 @@ armarParametros(venta){
 ventaAMysql(parametros){
   return new Promise((resolve, reject) => {
 
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
     let credentials = {
       montoTotal: parametros[0],
       cadena: parametros[1],
     };
     console.log(credentials);
-    // this.http.post(`${configServer.data.urlServidor}/api/operacionNueva/`, JSON.stringify(credentials), {headers: headers})
-    // .map(res => res.json())
-    // .subscribe(res => {
-    //   console.log(res);
-    //   resolve(res);
-    // }, (err) => {
-    //   console.log(err);
-    //   reject(err);
-    // });
-});
+    this.http.post(`${configServer.data.urlServidor}/api/ventaNuevaMRBREAK/`, JSON.stringify(credentials), {headers: headers})
+    .map(res => res.json())
+    .subscribe(res => {
+      console.log(res);
+      resolve(res);
+    }, (err) => {
+      console.log(err);
+      reject(err);
+    });
+  });
+}
+
+eliminarVenta(venta){
+  this.db.remove(venta).then((res)=>{
+    console.log(res);
+  }).catch((err) => {
+    console.log(err);
+  });
 }
 
 eliminarDB() {
@@ -120,12 +131,6 @@ eliminarDB() {
  
 updateTodo(todo){
   this.db.put(todo).catch((err) => {
-    console.log(err);
-  });
-}
- 
-deleteTodo(todo){
-  this.db.remove(todo).catch((err) => {
     console.log(err);
   });
 }
