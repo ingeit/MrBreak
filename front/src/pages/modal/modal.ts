@@ -57,14 +57,7 @@ export class ModalPage {
   }
 
   cobrarVenta(){
-    for(let lineaVenta of this.parametros.lineasDeVenta){
-      this.ventaToMysql = this.ventaToMysql.concat(lineaVenta.idProducto);
-      this.ventaToMysql = this.ventaToMysql.concat('|');
-      this.ventaToMysql = this.ventaToMysql.concat(lineaVenta.cantidad);
-      this.ventaToMysql = this.ventaToMysql.concat('*');
-    }
     this.viewCtrl.dismiss();
-
     this.localDB.crearVenta(this.parametros).then((res)=>{
       // this.loading.dismiss();
       console.log("respuesta pouch",res)

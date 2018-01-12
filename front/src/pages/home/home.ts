@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, MenuController } from 'ionic-angular';
 import { Producto } from '../../modelos/producto';
 import { ModalPage } from '../modal/modal';
+import { LocalDbProvider } from '../../providers/local-db/local-db';
 
 @Component({
   selector: 'page-home',
@@ -12,11 +13,13 @@ export class HomePage {
   public listaProductos: Producto[]; 
   public lineasDeVenta:any[];
   public totalVenta: number;
+  public respuestaPouchDB: any;
   
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private menu: MenuController,
+    public localDB: LocalDbProvider
     ){
       this.listaProductos = new Array();
       this.lineasDeVenta = new Array();
@@ -70,13 +73,42 @@ export class HomePage {
   }
 
   cobrar(){
-    console.log("cobrando");
     let parametros = {
       lineasDeVenta: this.lineasDeVenta,
       totalVenta: this.totalVenta
     }
     let modal = this.modalCtrl.create(ModalPage, {parametros: parametros}, {showBackdrop: true, enableBackdropDismiss: true});
     modal.present();
+  }
+
+  mostrarVentas(){
+    this.localDB.mostrarVentas().then((res)=>{
+      // this.loading.dismiss();
+      this.respuestaPouchDB = res;
+      console.log("respuesta pouch", this.respuestaPouchDB)
+    }).catch((err) => {
+      console.log("error pouch",err);
+    });
+  }
+
+  subirVentas(){
+    this.localDB.subirVentas().then((res)=>{
+      // this.loading.dismiss();
+      this.respuestaPouchDB = res;
+      console.log("respuesta pouch", this.respuestaPouchDB)
+    }).catch((err) => {
+      console.log("error pouch",err);
+    });
+  }
+
+  eliminarDB(){
+    this.localDB.eliminarDB().then((res)=>{
+      // this.loading.dismiss();
+      this.respuestaPouchDB = res;
+      console.log("respuesta pouch", this.respuestaPouchDB)
+    }).catch((err) => {
+      console.log("error pouch",err);
+    });
   }
 
 }

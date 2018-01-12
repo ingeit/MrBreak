@@ -58,6 +58,15 @@
                   <button [disabled]="lineasDeVenta.length === 0" class="botonCobrar" (click)="cobrar()" ion-button full>Cobrar ${{totalVenta}}</button>
             </ion-col>
         </ion-row>
+        <ion-col>
+          <button (click)="mostrarVentas()" ion-button full>Mostrar Ventas</button>
+       </ion-col>
+       <ion-col>
+        <button (click)="subirVentas()" ion-button full>Subir Ventas</button>
+     </ion-col>
+     <ion-col>
+      <button (click)="eliminarDB()" ion-button full>Eliminar DB</button>
+   </ion-col>
       </ion-col> 
     </ion-row>
   </ion-grid>
