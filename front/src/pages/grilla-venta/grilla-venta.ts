@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, MenuController } from 'ionic-angular';
 import { Producto } from '../../modelos/producto';
 import { ModalPage } from '../modal/modal';
+import { Network } from '@ionic-native/network';
 import { LocalDbProvider } from '../../providers/local-db/local-db';
+
 /**
  * Generated class for the GrillaVentaPage page.
  *
@@ -20,12 +22,14 @@ export class GrillaVentaPage {
   public lineasDeVenta:any[];
   public totalVenta: number;
   public respuestaPouchDB: any;
+  public conexion: any;
   
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private menu: MenuController,
-    public localDB: LocalDbProvider
+    public localDB: LocalDbProvider,
+    private network: Network
     ){
       this.listaProductos = new Array();
       this.lineasDeVenta = new Array();
@@ -47,6 +51,10 @@ export class GrillaVentaPage {
       console.log("nombre producto ",this.producto.nombre);
       console.log("lista producto ",this.listaProductos);
     }
+
+  ionViewDidEnter() {
+    this.chequearConexion();
+  }
 
   precioRandom(){
     var min = 1.00,
@@ -117,9 +125,14 @@ export class GrillaVentaPage {
 
   subirVentas(){
     this.localDB.subirVentas().then((res)=>{
+      console.log(res)
       // this.loading.dismiss();
+      if(res === 1){
+        console.log("codigo 1")
+      }else{
+        console.log("codigo distinto de uno")
+      }
       this.respuestaPouchDB = res;
-      console.log("respuesta pouch", this.respuestaPouchDB)
     }).catch((err) => {
       console.log("error pouch",err);
     });
@@ -133,6 +146,24 @@ export class GrillaVentaPage {
     }).catch((err) => {
       console.log("error pouch",err);
     });
+  }
+
+  chequearConexion(){
+
+    this.network.onDisconnect().subscribe(() => {
+      this.conexion = 0;
+      console.log(this.network.type)
+      console.log(this.conexion);
+    });
+
+    this.network.onConnect().subscribe(() => {
+      this.conexion = 1;
+      console.log(this.conexion);
+      // We just got a connection but we need to wait briefly
+       // before we determine the connection type. Might need to wait.
+      // prior to doing any api requests as well.
+    });
+
   }
 
 }

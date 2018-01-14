@@ -8,8 +8,7 @@ import * as configServer from './../../server';
  
 @Injectable()
 export class LocalDbProvider {
- 
-  public lineaVentaToMysql: any;
+
   public montoTotalVentaToMysql: any;
   data: any;
   db: any;
@@ -19,8 +18,7 @@ export class LocalDbProvider {
     this.db = new PouchDB('MrBreak'); 
   }
  
-  mostrarVentas() {
-    console.log("mostrarVentas!");  
+  mostrarVentas() { 
     return new Promise((resolve,reject) => {
       this.db.allDocs({include_docs: true}).then((res) => {
         this.data = [];
@@ -40,8 +38,9 @@ export class LocalDbProvider {
 crearVenta(todo){
   return new Promise((resolve, reject) => {
     let fechaString = this.fechaFormatoMysql();
-    todo.fecha = fechaString;
-    console.log(todo)
+    todo.fechaVenta = fechaString;
+    todo.idCarrito = 1;
+    todo.idVendedor = 1;
     this.db.post(todo).then((res) => {
       resolve(res)
     }).catch((err) => { 
@@ -54,12 +53,10 @@ fechaFormatoMysql(){
   let fecha = new Date();
   let mes = fecha.getMonth();
   mes++;
-  console.log(mes)
   return (fecha.getFullYear() + "-" + mes + "-" + fecha.getDate() + " " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds());
 }
 
-subirVentas() {
-  console.log("subirVentas!");  
+subirVentas() { 
   return new Promise((resolve,reject) => {
     this.db.allDocs({include_docs: true}).then((res) => {
       this.data = [];
@@ -67,15 +64,23 @@ subirVentas() {
         this.data.push(row.doc);
       });
       for(let venta of this.data){
-        let parametros = this.armarParametros(venta);
+        let cadena = this.armarCadenaLV(venta);
+        let parametros = {
+          idCarrito: venta.idCarrito,
+          idVendedor: venta.idVendedor,
+          montoTotal : venta.totalVenta,
+          cadena: cadena,
+          fechaVenta: venta.fechaVenta
+        }
         this.ventaAMysql(parametros).then((res) => {
-          this.eliminarVenta(venta);
-          console.log(res);
+          if(res[0].codigo !== 0 ){
+            this.eliminarVenta(venta);
+          }
         }).catch((err) => {
           console.log(err);
         });
       }
-      resolve(this.data);
+      resolve(this.data.length);
     }).catch((err) => {
       console.log(err);
       reject(err);
@@ -83,35 +88,28 @@ subirVentas() {
   });   
 }
 
-armarParametros(venta){
-  this.lineaVentaToMysql = new String;
+armarCadenaLV(venta){
+  let cadenaMYSQL = new String;
   for(let i = 0; i< venta.lineasDeVenta.length ; i++){
-    this.lineaVentaToMysql = this.lineaVentaToMysql.concat(venta.lineasDeVenta[i].idProducto);
-    this.lineaVentaToMysql = this.lineaVentaToMysql.concat('|');
-    this.lineaVentaToMysql = this.lineaVentaToMysql.concat(venta.lineasDeVenta[i].cantidad);
-    this.lineaVentaToMysql = this.lineaVentaToMysql.concat('|');
-    this.lineaVentaToMysql = this.lineaVentaToMysql.concat(venta.lineasDeVenta[i].precio);
-    this.lineaVentaToMysql = this.lineaVentaToMysql.concat('*');    
+   cadenaMYSQL = cadenaMYSQL.concat(venta.lineasDeVenta[i].idProducto);
+   cadenaMYSQL = cadenaMYSQL.concat('|');
+   cadenaMYSQL = cadenaMYSQL.concat(venta.lineasDeVenta[i].cantidad);
+   cadenaMYSQL = cadenaMYSQL.concat('|');
+   cadenaMYSQL = cadenaMYSQL.concat(venta.lineasDeVenta[i].precio);
+   cadenaMYSQL = cadenaMYSQL.concat('*');    
   }
   // A mysql le mandamos al SP los parametros (venta.totalVenta, lineaVentaToMysql)
   
-  return [venta.totalVenta,this.lineaVentaToMysql];
+  return cadenaMYSQL;
 }
 
 ventaAMysql(parametros){
   return new Promise((resolve, reject) => {
-
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let credentials = {
-      montoTotal: parametros[0],
-      cadena: parametros[1],
-    };
-    console.log(credentials);
-    this.http.post(`${configServer.data.urlServidor}/api/ventaNuevaMRBREAK/`, JSON.stringify(credentials), {headers: headers})
+    this.http.post(`${configServer.data.urlServidor}/api/ventaNuevaMRBREAK/`, JSON.stringify(parametros), {headers: headers})
     .map(res => res.json())
     .subscribe(res => {
-      console.log(res);
       resolve(res);
     }, (err) => {
       console.log(err);
@@ -122,7 +120,6 @@ ventaAMysql(parametros){
 
 eliminarVenta(venta){
   this.db.remove(venta).then((res)=>{
-    console.log(res);
   }).catch((err) => {
     console.log(err);
   });

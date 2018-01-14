@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { GrillaVentaPage } from '../pages/grilla-venta/grilla-venta';
 import { ModalPage } from '../pages/modal/modal';
 import { LocalDbProvider } from '../providers/local-db/local-db';
+import { Network } from '@ionic-native/network';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LocalDbProvider } from '../providers/local-db/local-db';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LocalDbProvider
+    LocalDbProvider,
+    Network
   ]
 })
 export class AppModule {}
