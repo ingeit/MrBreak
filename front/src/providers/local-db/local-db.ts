@@ -63,6 +63,7 @@ subirVentas() {
       let docs = res.rows.map((row) => {
         this.data.push(row.doc);
       });
+      let cantidadVentas = this.data.length;
       for(let venta of this.data){
         let cadena = this.armarCadenaLV(venta);
         let parametros = {
@@ -74,13 +75,14 @@ subirVentas() {
         }
         this.ventaAMysql(parametros).then((res) => {
           if(res[0].codigo !== 0 ){
+            cantidadVentas--;
             this.eliminarVenta(venta);
           }
         }).catch((err) => {
           console.log(err);
         });
       }
-      resolve(this.data.length);
+      resolve(res);
     }).catch((err) => {
       console.log(err);
       reject(err);

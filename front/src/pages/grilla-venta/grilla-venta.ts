@@ -127,12 +127,6 @@ export class GrillaVentaPage {
     this.localDB.subirVentas().then((res)=>{
       console.log(res)
       // this.loading.dismiss();
-      if(res === 1){
-        console.log("codigo 1")
-      }else{
-        console.log("codigo distinto de uno")
-      }
-      this.respuestaPouchDB = res;
     }).catch((err) => {
       console.log("error pouch",err);
     });
