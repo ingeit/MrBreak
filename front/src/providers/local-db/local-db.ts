@@ -39,12 +39,23 @@ export class LocalDbProvider {
  
 crearVenta(todo){
   return new Promise((resolve, reject) => {
+    let fechaString = this.fechaFormatoMysql();
+    todo.fecha = fechaString;
+    console.log(todo)
     this.db.post(todo).then((res) => {
       resolve(res)
     }).catch((err) => { 
       reject(err)
     });
   });
+}
+
+fechaFormatoMysql(){
+  let fecha = new Date();
+  let mes = fecha.getMonth();
+  mes++;
+  console.log(mes)
+  return (fecha.getFullYear() + "-" + mes + "-" + fecha.getDate() + " " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds());
 }
 
 subirVentas() {

@@ -3,12 +3,18 @@ import { NavController, ModalController, MenuController } from 'ionic-angular';
 import { Producto } from '../../modelos/producto';
 import { ModalPage } from '../modal/modal';
 import { LocalDbProvider } from '../../providers/local-db/local-db';
+/**
+ * Generated class for the GrillaVentaPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-grilla-venta',
+  templateUrl: 'grilla-venta.html',
 })
-export class HomePage {
+export class GrillaVentaPage {
   public producto: Producto;
   public listaProductos: Producto[]; 
   public lineasDeVenta:any[];
@@ -46,12 +52,12 @@ export class HomePage {
     var min = 1.00,
     max = 99.99,
     aleatorio = Math.random() * (max - min) + min;
-    aleatorio = this.truncarPrecios(aleatorio);
+    aleatorio = this.truncarPrecio(aleatorio);
 
     return aleatorio;
   }
-
-  truncarPrecios(precios){
+ 
+  truncarPrecio(precios){
     return (Math.round(precios*100) / 100);
   }
 
@@ -71,7 +77,7 @@ export class HomePage {
       this.lineasDeVenta[coincidencia].cantidad++;
     }
     this.totalVenta = this.totalVenta + p.precio;
-    this.totalVenta = this.truncarPrecios(this.totalVenta);
+    this.totalVenta = this.truncarPrecio(this.totalVenta);
 
     console.log(this.totalVenta)
     console.log(this.lineasDeVenta);
@@ -86,7 +92,7 @@ export class HomePage {
       this.lineasDeVenta.splice(coincidencia,1);
     }
     this.totalVenta = this.totalVenta - lv.precio;
-    this.totalVenta = this.truncarPrecios(this.totalVenta);
+    this.totalVenta = this.truncarPrecio(this.totalVenta);
     console.log(this.lineasDeVenta);
   }
 

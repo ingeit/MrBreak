@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { GrillaVentaPage } from '../grilla-venta/grilla-venta';
 import { LocalDbProvider } from '../../providers/local-db/local-db';
 
 /**
@@ -29,8 +29,8 @@ export class ModalPage {
     public localDB: LocalDbProvider) {
 
     this.teclas = new Array();
-    this.pagaCon = "0.00";
-    this.vuelto = "0.00";
+    this.pagaCon = "0";
+    this.vuelto = 0.00;
     this.teclas.push(1,2,3,4,5,6,7,8,9,0,".");
     this.parametros = navParams.get('parametros');
     this.ventaToMysql = '';
@@ -41,8 +41,12 @@ export class ModalPage {
     console.log('ionViewDidLoad ModalPage');
   }
 
+  truncarPrecio(precio){
+    return (Math.round(precio*100) / 100);
+  }
+
   clickPad(tecla){
-    if(this.pagaCon === '0.00'){
+    if(this.pagaCon === '0'){
       this.pagaCon = '';
     }
     if(tecla !== 'borrar'){
@@ -53,6 +57,9 @@ export class ModalPage {
 
     if(parseFloat(this.pagaCon) > parseFloat(this.parametros.totalVenta)){
       this.vuelto = parseFloat(this.pagaCon) - parseFloat(this.parametros.totalVenta);
+      this.vuelto = this.truncarPrecio(this.vuelto);
+    }else{
+      this.vuelto = 0.00;
     }
   }
 
@@ -65,7 +72,7 @@ export class ModalPage {
     }).catch((err) => {
       console.log("error pouch",err);
     });
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(GrillaVentaPage);
     console.log(this.ventaToMysql);
   }
 

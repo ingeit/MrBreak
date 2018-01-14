@@ -46,7 +46,7 @@
                         <ion-row>
                             <ion-col col-1><span class="cantidadRecuadro">{{lv.cantidad}}</span></ion-col> 
                             <ion-col col-8 class="lineaNombreProducto"><p>{{lv.nombre}}</p></ion-col>
-                            <ion-col col-2>${{this.truncarPrecios(lv.precio*lv.cantidad)}}</ion-col>
+                            <ion-col col-2>${{this.truncarPrecio(lv.precio*lv.cantidad)}}</ion-col>
                             <ion-col col-1><ion-icon (click)="eliminarCantidad(lv)" class="iconoEliminar" name="md-remove-circle"></ion-icon></ion-col>
                         </ion-row>
                       </ion-item>

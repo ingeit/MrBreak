@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { GrillaVentaPage } from '../pages/grilla-venta/grilla-venta';
 import { ModalPage } from '../pages/modal/modal';
 import { LocalDbProvider } from '../providers/local-db/local-db';
 
@@ -13,6 +14,7 @@ import { LocalDbProvider } from '../providers/local-db/local-db';
   declarations: [
     MyApp,
     HomePage,
+    GrillaVentaPage,
     ModalPage
   ],
   imports: [
@@ -24,6 +26,7 @@ import { LocalDbProvider } from '../providers/local-db/local-db';
   entryComponents: [
     MyApp,
     HomePage,
+    GrillaVentaPage,
     ModalPage
   ],
   providers: [
