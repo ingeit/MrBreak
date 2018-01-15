@@ -64,28 +64,33 @@ subirVentas() {
         this.data.push(row.doc);
       });
       let cantidadVentas = this.data.length;
-      for(let venta of this.data){
-        let cadena = this.armarCadenaLV(venta);
+      for(let i = 0; i <this.data.length; i++){
+        let cadena = this.armarCadenaLV(this.data[i]);
         let parametros = {
-          idCarrito: venta.idCarrito,
-          idVendedor: venta.idVendedor,
-          montoTotal : venta.totalVenta,
+          idCarrito: this.data[i].idCarrito,
+          idVendedor: this.data[i].idVendedor,
+          montoTotal : this.data[i].totalVenta,
           cadena: cadena,
-          fechaVenta: venta.fechaVenta
+          fechaVenta: this.data[i].fechaVenta
         }
         this.ventaAMysql(parametros).then((res) => {
           if(res[0].codigo !== 0 ){
             cantidadVentas--;
-            this.eliminarVenta(venta);
+            this.eliminarVenta(this.data[i]);
+          }
+          if(i === this.data.length - 1){
+            if(cantidadVentas === 0){
+              resolve(res);
+            }else{
+              reject({codigo : 0, mensaje: "hay "+cantidadVentas+" sin almacenar en la nube"});
+            }
           }
         }).catch((err) => {
           console.log(err);
         });
       }
-      resolve(res);
     }).catch((err) => {
       console.log(err);
-      reject(err);
     });
   });   
 }
