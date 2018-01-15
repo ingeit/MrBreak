@@ -79,7 +79,7 @@ subirVentas() {
             this.eliminarVenta(this.data[i]);
           }
           if(i === this.data.length - 1){
-            if(cantidadVentas === 0){
+            if(cantidadVentas === 0){ 
               resolve(res);
             }else{
               reject({codigo : 0, mensaje: "hay "+cantidadVentas+" sin almacenar en la nube"});
