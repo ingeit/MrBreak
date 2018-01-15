@@ -125,8 +125,7 @@ export class GrillaVentaPage {
 
   subirVentas(){
     this.localDB.subirVentas().then((res)=>{
-      console.log(res)
-      // this.loading.dismiss();
+      console.log(res);
     }).catch((err) => {
       console.log("error pouch",err);
     });
