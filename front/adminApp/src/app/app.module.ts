@@ -8,11 +8,13 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
+import {ImageCropperComponent} from 'ng2-img-cropper';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ImageCropperComponent
   ],
   imports: [
     BrowserModule,

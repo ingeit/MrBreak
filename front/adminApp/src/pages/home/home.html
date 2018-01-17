@@ -9,13 +9,20 @@
 <ion-content padding>
   <!-- <input type="file" (change)="imagen($event)"> -->
 
-  <input type="file" (change)="redimensionarImagen($event)" accept="image/*">
+  <!-- <input type="file" (change)="redimensionarImagen($event)" accept="image/*"> -->
 
-  <img
+  <!-- <img
   *ngIf="imagenReal"
   [src]="sanitizer.bypassSecurityTrustUrl(imagenReal)">
 
   <img
   *ngIf="imagenRedimensionada"
-  [src]="sanitizer.bypassSecurityTrustUrl(imagenRedimensionada)">
+  [src]="sanitizer.bypassSecurityTrustUrl(imagenRedimensionada)"> -->
+
+  <div>
+    <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
+    <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+</div>
+<button ion-button (click)="verImagenCrop()">ACEPTAR</button>
+
 </ion-content>
