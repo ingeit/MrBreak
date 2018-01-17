@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { Ng2ImgToolsModule } from 'ng2-img-tools';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
+    Ng2ImgMaxModule,
+    Ng2ImgToolsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

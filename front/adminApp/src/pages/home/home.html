@@ -7,5 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-  <input type="file" (change)="imagen($event)">
+  <!-- <input type="file" (change)="imagen($event)"> -->
+
+  <input type="file" (change)="redimensionarImagen($event)" accept="image/*">
+
+  <img
+  *ngIf="imagenReal"
+  [src]="sanitizer.bypassSecurityTrustUrl(imagenReal)">
+
+  <img
+  *ngIf="imagenRedimensionada"
+  [src]="sanitizer.bypassSecurityTrustUrl(imagenRedimensionada)">
 </ion-content>
