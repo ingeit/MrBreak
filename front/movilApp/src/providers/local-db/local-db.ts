@@ -80,17 +80,17 @@ subirVentas() {
           }
           if(i === this.data.length - 1){
             if(cantidadVentas === 0){ 
-              resolve(res);
+              resolve(res[0]);
             }else{
               reject({codigo : 0, mensaje: "hay "+cantidadVentas+" sin almacenar en la nube"});
             }
           }
         }).catch((err) => {
-          console.log(err);
+          reject({codigo : 0, mensaje: "Error de comunicacion"});
         });
       }
     }).catch((err) => {
-      console.log(err);
+      reject({codigo : 0, mensaje: "Error de comunicacion"});
     });
   });   
 }
